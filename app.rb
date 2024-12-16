@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/json'
-require './controllers/auths_controller'
+require_relative './controllers/auths_controller'
 
 class App < Sinatra::Base
   # Mount controllers
