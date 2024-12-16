@@ -1,0 +1,14 @@
+{
+    "name": "sinatra-app",
+    "engines": {
+      "node": "14.x"
+    },
+    "scripts": {
+      "start": "ruby app.rb"
+    },
+    "dependencies": {
+      "sinatra": "2.2.0",
+      "puma": "5.0"
+    }
+  }
+  
