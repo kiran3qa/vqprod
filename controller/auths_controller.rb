@@ -38,7 +38,7 @@ class AuthsController < Sinatra::Base
 
     end
 
-    get '/demoget' do
+    get '/auths/demoget' do
 
         response = {"status" => 200, "message" => "HI"}
         json response.to_a
