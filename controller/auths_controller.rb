@@ -1,16 +1,48 @@
-require 'sinatra'
-require 'sinatra/json'
-require './controllers/auths_controller'
 
-class App < Sinatra::Base
-  # Mount controllers
-  use AuthsController
+require './config/db'
 
-  # Root route
-  get '/' do
-    json message: 'Welcome to the Sinatra App!'
-  end
-end
+class AuthsController < Sinatra::Base
 
-set :bind, '0.0.0.0'
-set :port, ENV['PORT'] || 3000
+    post '/auths/applogin' do
+
+        data = JSON.parse(request.body.read)
+
+        email = data['email']
+        passcode = data['passcode']
+
+        sql = "SELECT urole FROM appusers WHERE email='#{email}'
+        AND passcode ='#{passcode}'"
+
+       response = DBconnection.getdbconnection.execute(sql)
+
+       json response.to_a
+
+    end
+
+    post '/auths/adduser' do
+
+        data = JSON.parse(request.body.read)
+        email = data['email']
+
+        checkemailexists = isemailexists(email)
+        checkemailexists == 1 ? json({ "status" => 200, "message" => "Email Exists" }) : "No User Found"
+
+    end
+
+    def isemailexists(email)
+
+        sql = "SELECT 1 FROM appusers WHERE email= '#{email}'"
+        result = DBconnection.getdbconnection.execute(sql)
+
+        numberofrows = result.count
+
+    end
+
+    get '/demoget' do
+
+        response = {"status" => 200, "message" => "HI"}
+        json response.to_a
+    end
+
+
+    end
